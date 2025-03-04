@@ -86,7 +86,7 @@ pipeline {
         }
         stage ("Code") {
             steps {
-                git branch: 'main', url: 'https://github.com/devops0014/Zomato-Repo.git'
+                git branch: 'main', url: 'https://github.com/charan-kilana/Docker_Deployment.git'
             }
         }
         stage("Sonarqube Analysis") {
@@ -129,20 +129,20 @@ pipeline {
             steps{
                 script{
                     withDockerRegistry(credentialsId: 'docker-password') {
-                        sh "docker tag image1 shaikmustafa/loki:mydockerimage"
-                        sh "docker push shaikmustafa/loki:mydockerimage"
+                        sh "docker tag image1 charansuryakilana/Zomato:mydockerimage"
+                        sh "docker push charansuryakilana/Zomato:mydockerimage"
                     }
                 }
             }
         }
         stage ("Scan image") {
             steps {
-                sh 'trivy image shaikmustafa/loki:mydockerimage'
+                sh 'trivy image charansuryakilana/Zomato:mydockerimage'
             }
         }
         stage ("Deploy") {
             steps {
-                sh 'docker run -d --name zomato -p 3000:3000 shaikmustafa/loki:mydockerimage'
+                sh 'docker run -d --name zomato -p 3000:3000 charansuryakilana/Zomato:mydockerimage'
             }
         }
     }
